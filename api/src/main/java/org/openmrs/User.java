@@ -144,6 +144,9 @@ public class User extends BaseOpenmrsObject implements java.io.Serializable, Att
 
 	@Column(name = "retire_reason", length = 255)
 	private String retireReason;
+
+	@Column(name = "tenant_id", length = 100)
+	private String tenantId;
 	
 	// Constructors
 	
@@ -757,5 +760,13 @@ public class User extends BaseOpenmrsObject implements java.io.Serializable, Att
 	@Override
 	public void setRetireReason(String retireReason) {
 		this.retireReason = retireReason;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }
