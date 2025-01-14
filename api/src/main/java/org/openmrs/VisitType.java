@@ -11,6 +11,8 @@ package org.openmrs;
 
 import org.hibernate.envers.Audited;
 
+import javax.persistence.Column;
+
 /**
  * Represents the assortment of visit types available to an implementation. These could include
  * items like "Initial HIV Clinic Visit", "Return TB Clinic Visit", and "Hospitalization".
@@ -23,6 +25,8 @@ public class VisitType extends BaseChangeableOpenmrsMetadata{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer visitTypeId;
+	
+	private String tenantId;
 	
 	/** default constructor */
 	public VisitType() {
@@ -78,5 +82,12 @@ public class VisitType extends BaseChangeableOpenmrsMetadata{
 	public void setId(Integer id) {
 		setVisitTypeId(id);
 	}
-	
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
+	}
 }

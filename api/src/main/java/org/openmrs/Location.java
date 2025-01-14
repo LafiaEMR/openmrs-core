@@ -131,6 +131,9 @@ public class Location extends BaseCustomizableMetadata<LocationAttribute> implem
 	@Column(name = "address15")
 	private String address15;
 
+	@Column(name = "tenant_id")
+	private String tenantId;
+
 	@ManyToOne
 	@JoinColumn(name = "parent_location")
 	private Location parentLocation;
@@ -851,5 +854,13 @@ public class Location extends BaseCustomizableMetadata<LocationAttribute> implem
 	@Override
 	public void setAddress15(String address15) {
 		this.address15 = address15;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

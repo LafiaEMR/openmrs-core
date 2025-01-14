@@ -25,5 +25,4 @@
 
 	<include file="org/openmrs/liquibase/snapshots/core-data/liquibase-core-data-2.6.x.xml"/>
 	
-	
 </databaseChangeLog>

@@ -45,7 +45,7 @@
 		<Logger name="org.hibernate" level="ERROR" />
 		<Logger name="net.sf.ehcache" level="ERROR" />
 		<Logger name="org.springframework" level="WARN" />
-		<Logger name="org.openmrs" level="WARN" />
+		<Logger name="org.openmrs" level="INFO" />
 		<Logger name="liquibase" level="INFO" />
 		<Logger name="liquibase.resource.CompositeResourceAccessor" level="ERROR" additivity="false"/>
 		<!-- 

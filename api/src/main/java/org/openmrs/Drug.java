@@ -23,6 +23,8 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.openmrs.api.context.Context;
 
+import javax.persistence.Column;
+
 /**
  * Drug
  */
@@ -47,6 +49,8 @@ public class Drug extends BaseChangeableOpenmrsMetadata {
 	private String strength;
 	
 	private Concept doseLimitUnits;
+	
+	private String tenantId;
 	
 	@IndexedEmbedded(includeEmbeddedObjectId = true)
 	private Concept concept;
@@ -302,5 +306,13 @@ public class Drug extends BaseChangeableOpenmrsMetadata {
 	 */
 	public void setDoseLimitUnits(Concept doseLimitUnits) {
 		this.doseLimitUnits = doseLimitUnits;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

@@ -18,6 +18,11 @@ import java.util.TreeSet;
 
 import org.hibernate.envers.Audited;
 import org.hibernate.search.annotations.ContainedIn;
+import org.openmrs.api.context.Context;
+import org.openmrs.tenant.TenantContext;
+
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 /**
  * Defines a Patient in the system. A patient is simply an extension of a person and all that that
@@ -36,7 +41,8 @@ public class Patient extends Person {
 	
 	@ContainedIn
 	private Set<PatientIdentifier> identifiers;
-
+	
+	private String tenantId;
 	
 	// Constructors
 	
@@ -405,6 +411,14 @@ public class Patient extends Person {
 	 */
 	public Person getPerson() {
 		return this;
+	}
+	
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 	
 }

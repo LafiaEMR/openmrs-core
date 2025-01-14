@@ -81,6 +81,9 @@ public class Visit extends BaseCustomizableData<VisitAttribute> implements Audit
 	@OrderBy("voided asc")
 	@BatchSize(size = 100)
 	private Set<VisitAttribute> attributes = new LinkedHashSet<>();
+
+	@Column(name = "tenant_id", length = 100)
+	private String tenantId;
 	
 	/**
 	 * Default Constructor
@@ -272,5 +275,13 @@ public class Visit extends BaseCustomizableData<VisitAttribute> implements Audit
 			encounter.setVisit(this);
 			getEncounters().add(encounter);
 		}
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

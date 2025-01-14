@@ -38,6 +38,9 @@
 		<property name="value" type="java.lang.String"
 			not-null="true" length="50" />
 
+		<property name="tenantId" type="java.lang.String"
+				  column="tenant_id" not-null="false" length="100" />
+
 		<many-to-one name="creator" class="org.openmrs.User"
 			column="creator" not-null="true" />
 		<property name="dateCreated" type="java.util.Date"

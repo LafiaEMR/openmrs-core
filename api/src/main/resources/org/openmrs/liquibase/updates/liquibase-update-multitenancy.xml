@@ -26,5 +26,197 @@
         </addColumn>
     </changeSet>
 
+	<changeSet id="add-index-to-users" author="dipakt">
+		<createIndex tableName="users" indexName="users_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="add-tenant-id-to-patient" author="dipakt">
+		<addColumn tableName="patient">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="patient" indexName="patient_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+    <changeSet id="add-tenant-id-to-person" author="dipakt">
+        <addColumn tableName="person">
+            <column name="tenant_id" type="varchar(100)" defaultValue="A">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="person" indexName="person_tenant_id_idx">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-tenant-id-to-obs" author="dipakt">
+        <addColumn tableName="obs">
+            <column name="tenant_id" type="varchar(100)" defaultValue="A">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="obs" indexName="obs_tenant_id_idx">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-tenant-id-to-patient_identifier" author="dipakt">
+        <addColumn tableName="patient_identifier">
+            <column name="tenant_id" type="varchar(100)" defaultValue="A">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="patient_identifier" indexName="patient_identifier_tenant_id_idx">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-tenant-id-to-orders" author="dipakt">
+        <addColumn tableName="orders">
+            <column name="tenant_id" type="varchar(100)" defaultValue="A">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="orders" indexName="orders_tenant_id_idx">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-tenant-id-to-person_attribute" author="dipakt">
+        <addColumn tableName="person_attribute">
+            <column name="tenant_id" type="varchar(100)" defaultValue="A">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="person_attribute" indexName="person_attribute_tenant_id_idx">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-tenant-id-to-relationship" author="dipakt">
+        <addColumn tableName="relationship">
+            <column name="tenant_id" type="varchar(100)" defaultValue="A">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="relationship" indexName="relationship_tenant_id_idx">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-tenant-id-to-cohort" author="dipakt">
+        <addColumn tableName="cohort">
+            <column name="tenant_id" type="varchar(100)" defaultValue="A">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="cohort" indexName="cohort_tenant_id_idx">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-tenant-id-to-concept" author="dipakt">
+        <addColumn tableName="concept">
+            <column name="tenant_id" type="varchar(100)" defaultValue="A">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="concept" indexName="concept_tenant_id_idx">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+	<changeSet id="add-tenant-id-to-encounter_diagnosis" author="dipakt">
+		<addColumn tableName="encounter_diagnosis">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="encounter_diagnosis" indexName="encounter_diagnosis_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="add-tenant-id-to-drug" author="dipakt">
+		<addColumn tableName="drug">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="drug" indexName="drug_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="add-tenant-id-to-encounter" author="dipakt">
+		<addColumn tableName="encounter">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="encounter" indexName="encounter_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="add-tenant-id-to-location" author="dipakt">
+		<addColumn tableName="location">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="location" indexName="location_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="add-tenant-id-to-provider" author="dipakt">
+		<addColumn tableName="provider">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="provider" indexName="provider_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="add-tenant-id-to-visit" author="dipakt">
+		<addColumn tableName="visit">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="visit" indexName="visit_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="add-tenant-id-to-visit_type" author="dipakt">
+		<addColumn tableName="visit_type">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="visit_type" indexName="visit_type_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="add-tenant-id-to-person_attribute_type" author="dipakt">
+		<addColumn tableName="person_attribute_type">
+			<column name="tenant_id" type="varchar(100)" defaultValue="A">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<createIndex tableName="person_attribute_type" indexName="person_attribute_type_tenant_id_idx">
+			<column name="tenant_id"/>
+		</createIndex>
+	</changeSet>
 
 </databaseChangeLog>

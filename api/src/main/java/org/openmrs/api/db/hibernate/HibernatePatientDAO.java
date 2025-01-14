@@ -83,7 +83,15 @@ public class HibernatePatientDAO implements PatientDAO {
 	 */
         @Override
 	public Patient getPatient(Integer patientId) {
-		return (Patient) sessionFactory.getCurrentSession().get(Patient.class, patientId);
+		Patient patient = (Patient) sessionFactory.getCurrentSession().get(Patient.class, patientId);
+		
+		// Add tenant check
+		String userTenant = Context.getAuthenticatedUser().getTenantId();
+		if (patient != null && !userTenant.equals(patient.getTenantId())) {
+			return null;
+		}
+		
+		return patient;
 	}
 	
 	/**
@@ -93,11 +101,21 @@ public class HibernatePatientDAO implements PatientDAO {
 	 */
         @Override
 	public Patient savePatient(Patient patient) throws DAOException {
+			log.info("Inside savePatient");
+			log.info("patient.getPatientId() == null:: {}", patient.getPatientId() == null);
 		if (patient.getPatientId() == null) {
+			String tenantId = Context.getAuthenticatedUser().getTenantId();
+			patient.setTenantId(tenantId);
+			
+			//Set tenantId for patientIdentifier
+			patient.getPatientIdentifier().setTenantId(tenantId);
+			
+			log.info("tenantId == null:: {}", patient.getTenantId());
 			// if we're saving a new patient, just do the normal thing
 			// and rows in the person and patient table will be created by
 			// hibernate
 			sessionFactory.getCurrentSession().saveOrUpdate(patient);
+			log.info("patient.tenantId:: {}", patient.getTenantId());
 			return patient;
 		} else {
 			// if we're updating a patient, its possible that a person
@@ -114,6 +132,9 @@ public class HibernatePatientDAO implements PatientDAO {
 			// and Persons are the same objects.  So it sees a Person object in the
 			// cache and claims it is a duplicate of this Patient object.
 			sessionFactory.getCurrentSession().saveOrUpdate(patient);
+
+
+			log.info("patient.tenantId:: {}", patient.getTenantId());
 			
 			return patient;
 		}
@@ -148,12 +169,13 @@ public class HibernatePatientDAO implements PatientDAO {
 				patient.setDateCreated(new Date());
 			}
 			
-			String insert = "INSERT INTO patient (patient_id, creator, voided, date_created) VALUES (:patientId, :creator, :voided, :dateCreated)";
+			String insert = "INSERT INTO patient (patient_id, creator, voided, date_created, tenant_id) VALUES (:patientId, :creator, :voided, :dateCreated, :tenantId)";
 			Query query = sessionFactory.getCurrentSession().createSQLQuery(insert);
 			query.setInteger("patientId", patient.getPatientId());
 			query.setInteger("creator", patient.getCreator().getUserId());
 			query.setBoolean("voided", false);
 			query.setDate("dateCreated", patient.getDateCreated());
+			query.setString("tenantId", patient.getTenantId());
 			
 			query.executeUpdate();
 			
@@ -245,6 +267,9 @@ public class HibernatePatientDAO implements PatientDAO {
 		if (!includeVoided) {
 			criteria.add(Restrictions.eq("voided", false));
 		}
+		
+		//Include tenant Restriction
+		criteria.add(Restrictions.eq("tenantId", Context.getAuthenticatedUser().getTenantId()));
 		
 		return criteria.list();
 	}
@@ -423,8 +448,9 @@ public class HibernatePatientDAO implements PatientDAO {
 				patientIds = sqlquery.list();
 				if (!patientIds.isEmpty()) {
 					Query query = sessionFactory.getCurrentSession().createQuery(
-							"from Patient p1 where p1.patientId in (:ids)");
+							"from Patient p1 where p1.patientId in (:ids) and p1.tenantId = :tenantId");
 					query.setParameterList("ids", patientIds);
+					query.setParameter("tenantId", Context.getAuthenticatedUser().getTenantId());
 					patients = query.list();
 				}
 			}
@@ -573,8 +599,8 @@ public class HibernatePatientDAO implements PatientDAO {
 	public Patient getPatientByUuid(String uuid) {
 		Patient p;
 		
-		p = (Patient) sessionFactory.getCurrentSession().createQuery("from Patient p where p.uuid = :uuid").setString(
-		    "uuid", uuid).uniqueResult();
+		p = (Patient) sessionFactory.getCurrentSession().createQuery("from Patient p where p.uuid = :uuid and p.tenantId = :tenantId").setString(
+		    "uuid", uuid).setString("tenantId", Context.getAuthenticatedUser().getTenantId()).uniqueResult();
 		
 		return p;
 	}
@@ -582,7 +608,10 @@ public class HibernatePatientDAO implements PatientDAO {
         @Override
 	public PatientIdentifier getPatientIdentifierByUuid(String uuid) {
 		return (PatientIdentifier) sessionFactory.getCurrentSession().createQuery(
-		    "from PatientIdentifier p where p.uuid = :uuid").setString("uuid", uuid).uniqueResult();
+		    "from PatientIdentifier p where p.uuid = :uuid and p.tenantId = :tenantId")
+			.setString("uuid", uuid)
+			.setString("tenantId", Context.getAuthenticatedUser().getTenantId())
+			.uniqueResult();
 	}
 	
 	/**
@@ -637,9 +666,14 @@ public class HibernatePatientDAO implements PatientDAO {
 	 */
         @Override
 	public PatientIdentifier getPatientIdentifier(Integer patientIdentifierId) throws DAOException {
-		
-		return (PatientIdentifier) sessionFactory.getCurrentSession().get(PatientIdentifier.class, patientIdentifierId);
-		
+		PatientIdentifier identifier = (PatientIdentifier) sessionFactory.getCurrentSession().get(PatientIdentifier.class, patientIdentifierId);
+
+		// Add tenant check
+		String userTenant = Context.getAuthenticatedUser().getTenantId();
+		if (identifier != null && !userTenant.equals(identifier.getTenantId())) {
+			return null;
+		}
+		return identifier;
 	}
 	
 	/**
@@ -649,7 +683,7 @@ public class HibernatePatientDAO implements PatientDAO {
 	 */
         @Override
 	public PatientIdentifier savePatientIdentifier(PatientIdentifier patientIdentifier) {
-		
+		patientIdentifier.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		sessionFactory.getCurrentSession().saveOrUpdate(patientIdentifier);
 		return patientIdentifier;
 		
@@ -747,6 +781,12 @@ public class HibernatePatientDAO implements PatientDAO {
 	}
 	
 	public List<Patient> findPatients(String query, boolean includeVoided, Integer start, Integer length){
+		log.info("Inside findPatients");
+		log.info("query:: {}", query);
+		log.info("includeVoided:: {}", includeVoided);
+		log.info("start:: {}", start);
+		log.info("length:: {}", length);
+		
 		Integer tmpStart = start;
 		if (tmpStart == null) {
 			tmpStart = 0;
@@ -770,7 +810,8 @@ public class HibernatePatientDAO implements PatientDAO {
 		}
 
 		LuceneQuery<PatientIdentifier> identifierQuery = getPatientIdentifierLuceneQuery(query, includeVoided, false);
-
+		log.info("identifierQuery:: {}", identifierQuery);
+		
 		long identifiersSize = identifierQuery.resultSize();
 		if (identifiersSize > tmpStart) {
 			ListPart<Object[]> patientIdentifiers = identifierQuery.listPartProjection(tmpStart, tmpLength, "patient.personId");
@@ -789,6 +830,9 @@ public class HibernatePatientDAO implements PatientDAO {
 		PersonLuceneQuery personLuceneQuery = new PersonLuceneQuery(sessionFactory);
 
 		LuceneQuery<PersonName> nameQuery = personLuceneQuery.getPatientNameQuery(query, includeVoided, identifierQuery);
+		
+		log.info("nameQuery:: {}", nameQuery);
+		
 		long namesSize = nameQuery.resultSize();
 		if (namesSize > tmpStart) {
 			ListPart<Object[]> personNames = nameQuery.listPartProjection(tmpStart, tmpLength, "person.personId");
@@ -805,6 +849,8 @@ public class HibernatePatientDAO implements PatientDAO {
 		}
 
 		LuceneQuery<PersonAttribute> attributeQuery = personLuceneQuery.getPatientAttributeQuery(query, includeVoided, nameQuery);
+		log.info("attributeQuery:: {}", attributeQuery);
+		
 		long attributesSize = attributeQuery.resultSize();
 		if (attributesSize > tmpStart) {
 			ListPart<Object[]> personAttributes = attributeQuery.listPartProjection(tmpStart, tmpLength, "person.personId");
@@ -854,7 +900,8 @@ public class HibernatePatientDAO implements PatientDAO {
         	luceneQuery.include("voided", false);
 			luceneQuery.include("patient.voided", false);
         }
-
+		
+		luceneQuery.include("tenantId", Context.getAuthenticatedUser().getTenantId());
         luceneQuery.include("patient.isPatient", true);
 		luceneQuery.skipSame("patient.personId");
 
@@ -1004,6 +1051,7 @@ public class HibernatePatientDAO implements PatientDAO {
 
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientIdentifier.class);
         criteria.add(Restrictions.eq("patientProgram", patientProgram));
+		criteria.add(Restrictions.eq("tenantId", Context.getAuthenticatedUser().getTenantId()));
         return criteria.list();
     }
 }

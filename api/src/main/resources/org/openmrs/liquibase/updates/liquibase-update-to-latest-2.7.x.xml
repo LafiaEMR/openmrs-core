@@ -171,10 +171,6 @@
 	</changeSet>
 
 	<!-- Add tenant column -->
-	<changeSet id="add-tenant-id-to-users" author="anishy">
-		<addColumn tableName="users">
-			<column name="tenant_id" type="char(100)" defaultValue="A" />
-		</addColumn>
-	</changeSet>
+	<include file="liquibase-update-multitenancy.xml" relativeToChangelogFile="true"/>
 	
 </databaseChangeLog>

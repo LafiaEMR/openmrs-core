@@ -140,6 +140,7 @@ public class PersonServiceImpl extends BaseOpenmrsService implements PersonServi
 	 */
 	@Override
 	public PersonAttributeType savePersonAttributeType(PersonAttributeType type) throws APIException {
+		type.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		checkIfPersonAttributeTypesAreLocked();
 		
 		if (type.getSortWeight() == null) {
@@ -298,6 +299,7 @@ public class PersonServiceImpl extends BaseOpenmrsService implements PersonServi
 	 */
 	@Override
 	public Person savePerson(Person person) throws APIException {
+		person.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		setPreferredPersonName(person);
 		setPreferredPersonAddress(person);
 		return dao.savePerson(person);
@@ -478,6 +480,8 @@ public class PersonServiceImpl extends BaseOpenmrsService implements PersonServi
 		if (relationship.getPersonA().equals(relationship.getPersonB())) {
 			throw new APIException("Person.cannot.same", (Object[]) null);
 		}
+		
+		relationship.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		
 		return dao.saveRelationship(relationship);
 	}

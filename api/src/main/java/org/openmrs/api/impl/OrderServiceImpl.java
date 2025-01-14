@@ -107,7 +107,8 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 	 */
 	@Override
 	public synchronized Order saveOrder(Order order, OrderContext orderContext) throws APIException {
-		return saveOrder(order, orderContext, false);
+		order.setTenantId(Context.getAuthenticatedUser().getTenantId());
+		return dao.saveOrder(order);
 	}
 	
 	/**
@@ -156,6 +157,7 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 	}
 
 	private Order saveOrder(Order order, OrderContext orderContext, boolean isRetrospective) {
+		order.setTenantId(Context.getAuthenticatedUser().getTenantId());
 
 		failOnExistingOrder(order);
 		ensureDateActivatedIsSet(order);

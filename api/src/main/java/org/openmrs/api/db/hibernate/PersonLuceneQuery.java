@@ -219,6 +219,9 @@ public class PersonLuceneQuery {
 		} else {
 			luceneQuery.skipSame("person.personId");
 		}
+		
+		//Adds tenantId search condition
+		luceneQuery.include("person.tenantId", Context.getAuthenticatedUser().getTenantId());
 
 		return luceneQuery;
 	}
@@ -272,6 +275,9 @@ public class PersonLuceneQuery {
 		} else {
 			luceneQuery.skipSame("person.personId");
 		}
+
+		//Adds tenantId search condition
+		luceneQuery.include("person.tenantId", Context.getAuthenticatedUser().getTenantId());
 
 		return luceneQuery;
 	}

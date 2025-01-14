@@ -119,6 +119,8 @@ public class Person extends BaseChangeableOpenmrsData {
 	@Transient
 	private Map<String, PersonAttribute> allAttributeMap = null;
 	
+	private String tenantId;
+	
 	/**
 	 * default empty constructor
 	 */
@@ -1171,5 +1173,13 @@ public class Person extends BaseChangeableOpenmrsData {
 	public void setId(Integer id) {
 		setPersonId(id);
 		
+	}
+	
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }
