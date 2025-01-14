@@ -103,6 +103,7 @@ public class ProviderServiceImpl extends BaseOpenmrsService implements ProviderS
 	 */
 	@Override
 	public Provider saveProvider(Provider provider) {
+		provider.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		CustomDatatypeUtil.saveAttributesIfNecessary(provider);
 		return dao.saveProvider(provider);
 	}

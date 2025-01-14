@@ -71,7 +71,8 @@ public class PatientIdentifier extends BaseChangeableOpenmrsData implements java
 	private Location location;
 
 	private PatientProgram patientProgram;
-	
+
+	private String tenantId;
 
 	@Field
 	private Boolean preferred = false;
@@ -353,5 +354,13 @@ public class PatientIdentifier extends BaseChangeableOpenmrsData implements java
 	 */
 	public void setPatientProgram(PatientProgram patientProgram) {
 		this.patientProgram = patientProgram;
+	}
+	
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

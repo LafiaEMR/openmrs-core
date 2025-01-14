@@ -115,6 +115,7 @@ public class ConceptServiceImpl extends BaseOpenmrsService implements ConceptSer
 	@Override
 	@CacheEvict(value = CONCEPT_IDS_BY_MAPPING_CACHE_NAME, allEntries = true)
 	public Concept saveConcept(Concept concept) throws APIException {
+		concept.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		ensureConceptMapTypeIsSet(concept);
 
 		CustomDatatypeUtil.saveAttributesIfNecessary(concept);
@@ -183,6 +184,7 @@ public class ConceptServiceImpl extends BaseOpenmrsService implements ConceptSer
 			concept.setSet(true);
 		}
 
+		concept.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		return dao.saveConcept(concept);
 	}
 

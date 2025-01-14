@@ -61,6 +61,8 @@ public class LocationServiceImpl extends BaseOpenmrsService implements LocationS
 		if (location.getName() == null) {
 			throw new APIException("Location.name.required", (Object[]) null);
 		}
+
+		location.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		
 		// Check for transient tags. If found, try to match by name and overwrite, otherwise throw exception.
 		if (location.getTags() != null) {

@@ -142,6 +142,8 @@ public class Order extends BaseCustomizableData<OrderAttribute> implements FormR
 	 * Represents the comment that goes along with with fulfiller status
 	 */	
 	private String fulfillerComment;
+	
+	private String tenantId;
 
 	// Constructors
 	
@@ -950,5 +952,13 @@ public class Order extends BaseCustomizableData<OrderAttribute> implements FormR
 	@Override
 	public void setFormField(String namespace, String formFieldPath) {
 		formNamespaceAndPath = BaseFormRecordableOpenmrsData.getFormNamespaceAndPath(namespace, formFieldPath);
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

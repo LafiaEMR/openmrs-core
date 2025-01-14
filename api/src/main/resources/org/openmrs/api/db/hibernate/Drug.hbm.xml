@@ -54,6 +54,9 @@
 		<many-to-one name="doseLimitUnits" class="org.openmrs.Concept"
 		    not-null="false" column="dose_limit_units" />
 
+		<property name="tenantId" type="java.lang.String"
+				  column="tenant_id" not-null="false" length="100" />
+
 		<set name="ingredients" lazy="true" inverse="true">
 			<key column="drug_id" />	
 			<one-to-many class="org.openmrs.DrugIngredient" />

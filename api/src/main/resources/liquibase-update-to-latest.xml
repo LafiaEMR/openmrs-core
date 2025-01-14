@@ -25,6 +25,4 @@
 
 	<include file="org/openmrs/liquibase/updates/liquibase-update-to-latest-2.7.x.xml"/>
 
-<!--	<include file="org/openmrs/liquibase/updates/liquibase-update-multitenancy.xml"/>-->
-
 </databaseChangeLog>

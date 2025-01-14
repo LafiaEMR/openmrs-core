@@ -67,6 +67,8 @@ public class PersonAttribute extends BaseChangeableOpenmrsData implements java.i
 			@Field(name = "valueAnywhere", analyzer = @Analyzer(definition = LuceneAnalyzers.ANYWHERE_ANALYZER))
 	})
 	private String value;
+
+	private String tenantId;
 	
 	/** default constructor */
 	public PersonAttribute() {
@@ -328,7 +330,15 @@ public class PersonAttribute extends BaseChangeableOpenmrsData implements java.i
 		setPersonAttributeId(id);
 		
 	}
-	
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
+	}
+
 	/**
 	 Provides a default comparator.
 	 @since 1.12

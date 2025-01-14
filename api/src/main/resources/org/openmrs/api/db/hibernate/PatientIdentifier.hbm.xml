@@ -29,6 +29,9 @@
 		<property name="identifier" type="java.lang.String" length="50"/>
 		<many-to-one name="identifierType" class="org.openmrs.PatientIdentifierType" column="identifier_type"/>
 
+		<property name="tenantId" type="java.lang.String"
+				  column="tenant_id" not-null="false" length="100" />
+
 		<many-to-one name="location" class="org.openmrs.Location" column="location_id" not-null="false"/>
 		<many-to-one name="patientProgram" class="org.openmrs.PatientProgram" column="patient_program_id" not-null="false"/>
 		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />

@@ -89,6 +89,9 @@ public class Diagnosis extends BaseCustomizableData<DiagnosisAttribute> implemen
 	@Column(name="form_namespace_and_path")
 	private String formNamespaceAndPath;
 
+	@Column(name = "tenant_id")
+	private String tenantId;
+
 	/**
 	 * Default no-arg Constructor; instantiates a new Diagnosis without passing any initial values.
 	 */
@@ -329,5 +332,13 @@ public class Diagnosis extends BaseCustomizableData<DiagnosisAttribute> implemen
 	@Override
 	public void setFormField(String namespace, String formFieldPath) {
 		formNamespaceAndPath = BaseFormRecordableOpenmrsData.getFormNamespaceAndPath(namespace, formFieldPath);
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

@@ -52,6 +52,7 @@ public class CohortServiceImpl extends BaseOpenmrsService implements CohortServi
 	 */
 	@Override
 	public Cohort saveCohort(Cohort cohort) throws APIException {
+		cohort.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		if (cohort.getCohortId() == null) {
 			Context.requirePrivilege(PrivilegeConstants.ADD_COHORTS);
 		} else {

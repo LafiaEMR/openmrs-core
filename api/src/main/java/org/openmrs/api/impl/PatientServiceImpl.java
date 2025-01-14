@@ -72,7 +72,10 @@ import org.openmrs.util.PrivilegeConstants;
 import org.openmrs.validator.PatientIdentifierValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.openmrs.tenant.TenantContext;
+//import org.openmrs.tenant.TenantAwarePatientDAO;
 
 /**
  * Default implementation of the patient service. This class should not be used on its own. The
@@ -88,6 +91,8 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 	
 	private static final Logger log = LoggerFactory.getLogger(PatientServiceImpl.class);
 	
+//	@Autowired
+//	private TenantAwarePatientDAO dao;
 	private PatientDAO dao;
 	
 	/**
@@ -119,6 +124,11 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 	 */
 	@Override
 	public Patient savePatient(Patient patient) throws APIException {
+		log.info("Inside savePatient");
+		log.info("patient.getTenantId() == null:: {}", patient.getTenantId() == null);
+		log.info("Context.getAuthenticatedUser().getTenantId():: {}", Context.getAuthenticatedUser().getTenantId());
+		patient.setTenantId(Context.getAuthenticatedUser().getTenantId());
+		
 		requireAppropriatePatientModificationPrivilege(patient);
 
 		if (!patient.getVoided() && patient.getIdentifiers().size() == 1) {
@@ -132,6 +142,8 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 		setPreferredPatientIdentifier(patient);
 		setPreferredPatientName(patient);
 		setPreferredPatientAddress(patient);
+
+		log.info("tenantId():: {}", patient.getTenantId());
 
 		return dao.savePatient(patient);
 	}

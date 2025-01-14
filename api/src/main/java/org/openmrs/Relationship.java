@@ -60,6 +60,9 @@ public class Relationship extends BaseChangeableOpenmrsData {
 	@Column(name = "end_date", length = 19)
 	private Date endDate;
 	
+	@Column(name = "tenant_id")
+	private String tenantId;
+	
 	// Constructors
 	
 	/** default constructor */
@@ -222,6 +225,14 @@ public class Relationship extends BaseChangeableOpenmrsData {
 	public void setId(Integer id) {
 		setRelationshipId(id);
 		
+	}
+	
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 	
 }

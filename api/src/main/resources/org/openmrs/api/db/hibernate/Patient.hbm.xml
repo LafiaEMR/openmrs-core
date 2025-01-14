@@ -45,6 +45,9 @@
 		<property name="allergyStatus" type="java.lang.String"
 			column="allergy_status" not-null="false" length="50" />
 
+		<property name="tenantId" type="java.lang.String"
+				  column="tenant_id" not-null="false" length="100" />
+
 		<!-- Associations -->
 
 		<!-- bi-directional one-to-many association to PatientIdentifier -->

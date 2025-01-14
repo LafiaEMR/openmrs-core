@@ -41,6 +41,7 @@ public class DiagnosisServiceImpl extends BaseOpenmrsService implements Diagnosi
 	 */
 	@Override
 	public Diagnosis save(Diagnosis diagnosis) {
+		diagnosis.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		diagnosisDAO.saveDiagnosis(diagnosis);
 		return diagnosis;
 	}

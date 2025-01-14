@@ -114,6 +114,9 @@ public class Encounter extends BaseChangeableOpenmrsData {
 	@OneToMany(mappedBy = "encounter")
 	private Set<Allergy> allergies;
 	
+	@Column(name = "tenant_id")
+	private String tenantId;
+	
 	// Constructors
 	
 	/** default constructor */
@@ -970,5 +973,13 @@ public class Encounter extends BaseChangeableOpenmrsData {
 			c.setVoidReason("Voided by the API");
 			c.setVoidedBy(Context.getAuthenticatedUser());
 		});
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

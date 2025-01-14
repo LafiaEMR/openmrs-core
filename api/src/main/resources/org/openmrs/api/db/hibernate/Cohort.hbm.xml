@@ -34,6 +34,8 @@
 			<key column="cohort_id" not-null="true"/>
 			<one-to-many class="org.openmrs.CohortMembership"/>
 		</set>
+		<property name="tenantId" type="java.lang.String"
+				  column="tenant_id" not-null="false" length="100" />
 
 		<property name="dateCreated" type="java.util.Date"
 			column="date_created" not-null="true" length="19" />

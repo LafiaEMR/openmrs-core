@@ -120,7 +120,9 @@ RUN mkdir -p /openmrs/data/modules \
     && mkdir -p /openmrs/data/owa  \
     && mkdir -p /openmrs/data/configuration \
     && mkdir -p /openmrs/data/configuration_checksums \
-    && chmod -R g+rw /openmrs
+    && chmod -R g+rw /openmrs  
+    
+#Copy modules 
     
 # Copy in the start-up scripts
 COPY --from=dev /openmrs/wait-for-it.sh /openmrs/startup-init.sh /openmrs/startup.sh /openmrs/

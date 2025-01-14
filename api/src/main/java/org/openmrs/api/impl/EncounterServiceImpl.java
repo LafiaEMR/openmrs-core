@@ -93,6 +93,7 @@ public class EncounterServiceImpl extends BaseOpenmrsService implements Encounte
 	 */
 	@Override
 	public Encounter saveEncounter(Encounter encounter) throws APIException {
+		encounter.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		
 		// if authenticated user is not supposed to edit encounter of certain type
 		failIfDeniedToEdit(encounter);

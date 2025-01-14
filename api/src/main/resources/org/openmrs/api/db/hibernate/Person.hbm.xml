@@ -73,6 +73,9 @@
 
 		<property name="causeOfDeathNonCoded" type="java.lang.String"
 				  column="cause_of_death_non_coded" length="255" />
+
+		<property name="tenantId" type="java.lang.String"
+				  column="tenant_id" not-null="false" length="100" />
 		<!-- Associations -->
 
 		<!-- bi-directional one-to-many association to PersonAddress -->

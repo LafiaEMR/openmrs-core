@@ -110,6 +110,7 @@ public class VisitServiceImpl extends BaseOpenmrsService implements VisitService
 	 */
 	@Override
 	public VisitType saveVisitType(VisitType visitType) throws APIException {
+		visitType.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		ValidateUtil.validate(visitType);
 		return getVisitDAO().saveVisitType(visitType);
 	}
@@ -175,6 +176,9 @@ public class VisitServiceImpl extends BaseOpenmrsService implements VisitService
 		} else {
 			Context.requirePrivilege(PrivilegeConstants.EDIT_VISITS);
 		}
+
+
+		visit.setTenantId(Context.getAuthenticatedUser().getTenantId());
 		
 		CustomDatatypeUtil.saveAttributesIfNecessary(visit);
 		return dao.saveVisit(visit);
