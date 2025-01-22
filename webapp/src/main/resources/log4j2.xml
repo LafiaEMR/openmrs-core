@@ -43,9 +43,14 @@
 	<Loggers>
 		<Logger name="org.apache" level="WARN" />
 		<Logger name="org.hibernate" level="ERROR" />
+
+<!--		<Logger name="org.hibernate.search" level="ERROR" />-->
+<!--		<Logger name="org.hibernate.SQL" level="DEBUG" />-->
+		<Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" additivity="false" />
+		
 		<Logger name="net.sf.ehcache" level="ERROR" />
 		<Logger name="org.springframework" level="WARN" />
-		<Logger name="org.openmrs" level="WARN" />
+		<Logger name="org.openmrs" level="INFO" />
 		<Logger name="liquibase" level="INFO" />
 		<Logger name="liquibase.resource.CompositeResourceAccessor" level="ERROR" additivity="false"/>
 		<!-- 

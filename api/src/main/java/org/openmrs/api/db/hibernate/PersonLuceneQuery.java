@@ -19,6 +19,8 @@ import org.openmrs.PersonName;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.search.LuceneQuery;
 import org.openmrs.util.OpenmrsConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides common queries for HibernatePatientDAO and HibernatePersonDAO.
@@ -198,13 +200,14 @@ public class PersonLuceneQuery {
 		if (OpenmrsConstants.GLOBAL_PROPERTY_PATIENT_SEARCH_MATCH_ANYWHERE.equals(matchMode)) {
 			fields.addAll(Arrays.asList("givenNameAnywhere", "middleNameAnywhere", "familyNameAnywhere", "familyName2Anywhere"));
 		}
+		
 		LuceneQuery<PersonName> luceneQuery = LuceneQuery
 				.newQuery(PersonName.class, sessionFactory.getCurrentSession(), query, fields);
 
 		if (orQueryParser) {
 			luceneQuery.useOrQueryParser();
 		}
-
+		
 		if (!includeVoided) {
 			luceneQuery.include("voided", false);
 			luceneQuery.include("person.voided", false);
@@ -219,9 +222,19 @@ public class PersonLuceneQuery {
 		} else {
 			luceneQuery.skipSame("person.personId");
 		}
+		
+		// Add tenant filter using current user's tenant
+		String currentTenantId = Context.getAuthenticatedUser().getTenantId();
+//		if (currentTenantId != null) {
+//			luceneQuery.include("person.tenantId", currentTenantId);
+//		}
+
+		luceneQuery.include("person.gender", "F");
 
 		return luceneQuery;
 	}
+
+	private static final Logger log = LoggerFactory.getLogger(PersonLuceneQuery.class);
 
 	public LuceneQuery<PersonAttribute> getPersonAttributeQuery(String query, boolean includeVoided, LuceneQuery<?> skipSame) {
 		return getPersonAttributeQuery(query, false, includeVoided, false, skipSame);
@@ -272,6 +285,9 @@ public class PersonLuceneQuery {
 		} else {
 			luceneQuery.skipSame("person.personId");
 		}
+
+		//Adds tenantId search condition
+		luceneQuery.include("person.tenantId", Context.getAuthenticatedUser().getTenantId());
 
 		return luceneQuery;
 	}

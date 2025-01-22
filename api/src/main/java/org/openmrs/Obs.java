@@ -155,6 +155,8 @@ public class Obs extends BaseFormRecordableOpenmrsData {
 	private Status status = Status.FINAL;
 
 	private ObsReferenceRange referenceRange;
+	
+	private String tenantId;
 
 	/** default constructor */
 	public Obs() {
@@ -1266,5 +1268,19 @@ public class Obs extends BaseFormRecordableOpenmrsData {
 	 */
 	public void setReferenceRange(ObsReferenceRange referenceRange) {
 		this.referenceRange = referenceRange;
+	}
+
+	/**
+	 * @return Returns the tenantId.
+	 */
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	/**
+	 * @param tenantId The tenantId to set.
+	 */
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

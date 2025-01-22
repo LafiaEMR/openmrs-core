@@ -461,4 +461,5 @@ public abstract class LuceneQuery<T> extends SearchQuery<T> {
 			fullTextQuery.setMaxResults(maxResults.intValue());
 		}
 	}
+	
 }

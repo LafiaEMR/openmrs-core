@@ -40,6 +40,9 @@
 
 		<many-to-one name="speciality" class="Concept" column="speciality_id" />
 
+		<property name="tenantId" type="java.lang.String"
+				column="tenant_id" not-null="false" length="100" />
+
 		<property name="dateCreated" type="java.util.Date" column="date_created"
 			not-null="true" length="19" />
 

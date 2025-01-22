@@ -169,5 +169,8 @@
 			referencedTableName="obs"
 			referencedColumnNames="obs_id"/>
 	</changeSet>
+
+	<!-- Add tenant column -->
+	<include file="liquibase-update-multitenancy.xml" relativeToChangelogFile="true"/>
 	
 </databaseChangeLog>

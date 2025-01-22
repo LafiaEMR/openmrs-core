@@ -35,6 +35,8 @@ public class Cohort extends BaseChangeableOpenmrsData {
 	
 	private Collection<CohortMembership> memberships;
 	
+	private String tenantId;
+	
 	public Cohort() {
 		memberships = new TreeSet<>();
 	}
@@ -404,5 +406,13 @@ public class Cohort extends BaseChangeableOpenmrsData {
 	 **/
 	public boolean hasNoActiveMemberships() {
 		return getActiveMemberships().isEmpty();
+	}
+	
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

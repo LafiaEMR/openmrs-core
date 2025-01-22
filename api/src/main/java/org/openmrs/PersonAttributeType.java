@@ -57,6 +57,9 @@ public class PersonAttributeType extends BaseChangeableOpenmrsMetadata implement
 	@JoinColumn(name = "edit_privilege")
 	private Privilege editPrivilege;
 	
+	@Column(name = "tenant_id")
+	private String tenantId;
+	
 	/** default constructor */
 	public PersonAttributeType() {
 	}
@@ -208,7 +211,15 @@ public class PersonAttributeType extends BaseChangeableOpenmrsMetadata implement
 		DefaultComparator patDefaultComparator = new DefaultComparator();
 		return patDefaultComparator.compare(this, other);
 	}
-	
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
+	}
+
 	/**
 	 Provides a default comparator.
 	 @since 1.12

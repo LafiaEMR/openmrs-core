@@ -90,29 +90,8 @@ public class ObsServiceImpl extends BaseOpenmrsService implements ObsService {
 	 */
 	@Override
 	public Obs saveObs(Obs obs, String changeMessage) throws APIException {
-		if(obs == null){
-			throw new APIException("Obs.error.cannot.be.null", (Object[]) null);
-		}
-
-		if(obs.getId() != null && changeMessage == null){
-			throw new APIException("Obs.error.ChangeMessage.required", (Object[]) null);
-		}
-
-		handleExistingObsWithComplexConcept(obs);
-
-		ensureRequirePrivilege(obs);
-
-		//Should allow updating a voided Obs, it seems to be pointless to restrict it,
-		//otherwise operations like merge patients won't be possible when to moving voided obs
-		if (obs.getObsId() == null || obs.getVoided()) {
-			return saveNewOrVoidedObs(obs,changeMessage);
-		} else if(!obs.isDirty()){
-			setPersonFromEncounter(obs);
-			return saveObsNotDirty(obs, changeMessage);
-		} else {
-			setPersonFromEncounter(obs);
-			return saveExistingObs(obs,changeMessage);
-		}
+		obs.setTenantId(Context.getAuthenticatedUser().getTenantId());
+		return dao.saveObs(obs);
 	}
 
 	private void setPersonFromEncounter(Obs obs) {

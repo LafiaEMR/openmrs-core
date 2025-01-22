@@ -26,13 +26,8 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.ContainedIn;
-import org.hibernate.search.annotations.DateBridge;
-import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.EncodingType;
+import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Resolution;
 import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,6 +113,9 @@ public class Person extends BaseChangeableOpenmrsData {
 	
 	@Transient
 	private Map<String, PersonAttribute> allAttributeMap = null;
+
+	@Field(name = "tenantId", store= Store.YES)
+	private String tenantId;
 	
 	/**
 	 * default empty constructor
@@ -1171,5 +1169,13 @@ public class Person extends BaseChangeableOpenmrsData {
 	public void setId(Integer id) {
 		setPersonId(id);
 		
+	}
+	
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

@@ -32,6 +32,8 @@ public class Provider extends BaseCustomizableMetadata<ProviderAttribute> {
 	private Concept role;
 	
 	private Concept speciality;
+
+	private String tenantId;
 	
 	public Provider() {
 	}
@@ -157,5 +159,13 @@ public class Provider extends BaseCustomizableMetadata<ProviderAttribute> {
 			log.warn("We no longer support providers who are not linked to person. Set the name on the linked person");
 			return null;
 		}
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

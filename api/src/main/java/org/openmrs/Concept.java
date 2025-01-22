@@ -108,7 +108,25 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 	private User changedBy;
 	
 	private Date dateChanged;
-	
+
+	private String tenantId;
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
+	}
+
+	public Map<Locale, List<ConceptName>> getCompatibleCache() {
+		return compatibleCache;
+	}
+
+	public void setCompatibleCache(Map<Locale, List<ConceptName>> compatibleCache) {
+		this.compatibleCache = compatibleCache;
+	}
+
 	@AllowDirectAccess
 	@ContainedIn
 	private Collection<ConceptName> names;
