@@ -8,6 +8,8 @@
 #	Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS 
 #	graphic logo is a trademark of OpenMRS Inc.
 
+# ARG $BUILDPLATFORM=linux/arm64
+
 ARG DEV_JDK=amazoncorretto-8
 ARG RUNTIME_JDK=jdk8-corretto
 
@@ -19,7 +21,7 @@ RUN yum -y update && yum -y install git && yum clean all
 WORKDIR /openmrs_core
 
 ENV OMRS_SDK_PLUGIN="org.openmrs.maven.plugins:openmrs-sdk-maven-plugin"
-ENV OMRS_SDK_PLUGIN_VERSION="5.11.0"
+ENV OMRS_SDK_PLUGIN_VERSION="5.15.0"
 
 COPY docker-pom.xml .
 
@@ -126,6 +128,8 @@ RUN mkdir -p /openmrs/data/modules \
 # Copy in the start-up scripts
 COPY --from=dev /openmrs/wait-for-it.sh /openmrs/startup-init.sh /openmrs/startup.sh /openmrs/
 RUN chmod g+x /openmrs/wait-for-it.sh && chmod g+x /openmrs/startup-init.sh && chmod g+x /openmrs/startup.sh
+
+COPY --from=compile /openmrs_core/modules /openmrs/modules
 
 WORKDIR /openmrs
 
