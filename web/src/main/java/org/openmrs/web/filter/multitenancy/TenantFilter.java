@@ -12,7 +12,6 @@ package org.openmrs.web.filter.multitenancy;
 import org.openmrs.api.db.hibernate.multitenancy.TenantContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -20,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@Component
 public class TenantFilter implements Filter {
     private static final Logger log = LoggerFactory.getLogger(TenantFilter.class);
 
