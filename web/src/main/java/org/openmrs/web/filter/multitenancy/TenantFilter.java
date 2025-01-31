@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,27 +27,40 @@ public class TenantFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        log.info("Inside DOFilter");
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        String tenantId = req.getHeader("X-TenantID");
+		log.info("Inside DOFilter");
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
 
-        log.info("TenantId:: {}", tenantId);
+		// First check the request header for the tenant ID
+		String tenantId = req.getHeader("X-TenantID");
 
-        if (tenantId == null || tenantId.trim().isEmpty()) {
-            log.error("No tenant ID provided in the request");
-			tenantId = "public";
-//            res.setContentType("application/json");
-//            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            res.getWriter().write("{\"error\": \"Unauthorized: No tenant ID provided\"}");
-//            return;
-        }
+		// If not found in header, check the cookies
+		if (tenantId == null || tenantId.trim().isEmpty()) {
+			Cookie[] cookies = req.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if ("X-TenantID".equals(cookie.getName())) {
+						tenantId = cookie.getValue();
+						break;
+					}
+				}
+			}
+		}
 
-        TenantContext.setCurrentTenant(tenantId);
-        try {
-            chain.doFilter(request, response);
-        } finally {
-            TenantContext.clear();
-        }
+		// If still not found, set to "public"
+		if (tenantId == null || tenantId.trim().isEmpty()) {
+			log.error("No tenant ID provided in the request or cookies");
+//			tenantId = "public";
+
+			res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: Tenant ID is required");
+			return;
+		}
+
+		TenantContext.setCurrentTenant(tenantId);
+		try {
+			chain.doFilter(request, response);
+		} finally {
+			TenantContext.clear();
+		}
     }
 }
