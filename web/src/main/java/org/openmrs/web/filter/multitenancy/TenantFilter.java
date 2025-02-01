@@ -47,8 +47,6 @@ public class TenantFilter implements Filter {
 		// If still not found, set to "public"
 		if (tenantId == null || tenantId.trim().isEmpty()) {
 			log.error("No tenant ID provided in the request or cookies");
-//			tenantId = "public";
-
 			res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: Tenant ID is required");
 			return;
 		}
