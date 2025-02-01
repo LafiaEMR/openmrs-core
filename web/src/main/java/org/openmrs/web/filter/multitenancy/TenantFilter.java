@@ -18,6 +18,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class TenantFilter implements Filter {
     private static final Logger log = LoggerFactory.getLogger(TenantFilter.class);
@@ -34,15 +36,12 @@ public class TenantFilter implements Filter {
 
 		// If not found in header, check the cookies
 		if (tenantId == null || tenantId.trim().isEmpty()) {
-			Cookie[] cookies = req.getCookies();
-			if (cookies != null) {
-				for (Cookie cookie : cookies) {
-					if ("X-TenantID".equals(cookie.getName())) {
-						tenantId = cookie.getValue();
-						break;
-					}
-				}
-			}
+			tenantId = Optional.ofNullable(req.getCookies())
+				.map(Arrays::stream)
+				.flatMap(stream -> stream.filter(c -> "X-TenantID".equals(c.getName()))
+					.findFirst()
+					.map(Cookie::getValue))
+				.orElse(null);
 		}
 
 		// If still not found, set to "public"
