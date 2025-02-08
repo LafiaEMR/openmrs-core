@@ -5,7 +5,6 @@ on:
         branches:
             - development
             - staging
-            - development
 
 jobs:
     build-and-push:
@@ -37,5 +36,3 @@ jobs:
             - name: Push Docker Image to AWS ECR
               run: |
                   docker push ${{ secrets.ECR_REPOSITORY }}:latest
-
-#
