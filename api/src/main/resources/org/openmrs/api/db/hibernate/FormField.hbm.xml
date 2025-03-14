@@ -18,9 +18,10 @@
 	<class name="FormField" table="form_field">
 
 		<id name="formFieldId" type="int" column="form_field_id" unsaved-value="0">
-			<generator class="native">
-				<param name="sequence">form_field_form_field_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">form_field_form_field_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 
 		

@@ -18,9 +18,10 @@
 	<class name="ConceptProposal" table="concept_proposal">
 
 		<id name="conceptProposalId" type="java.lang.Integer" column="concept_proposal_id">
-			<generator class="native">
-				<param name="sequence">concept_proposal_concept_proposal_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">concept_proposal_concept_proposal_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 		
 		<property name="uuid" type="java.lang.String"
