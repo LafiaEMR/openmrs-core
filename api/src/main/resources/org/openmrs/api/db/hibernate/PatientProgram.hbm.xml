@@ -18,9 +18,10 @@
 <class name="PatientProgram" table="patient_program">
 
 	<id name="patientProgramId" type="java.lang.Integer" column="patient_program_id">
-		<generator class="identity">
-			<param name="sequence">patient_program_patient_program_id</param>
-		</generator>
+<!--		<generator class="sequence">-->
+<!--			<param name="sequence">patient_program_patient_program_id</param>-->
+<!--		</generator>-->
+		<generator class="identity" />
 	</id>
 
 	<discriminator column="patient_program_id" insert="false" />
