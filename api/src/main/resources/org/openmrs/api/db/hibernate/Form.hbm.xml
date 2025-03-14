@@ -18,9 +18,10 @@
 	<class name="Form" table="form">
 
 		<id name="formId" type="int" column="form_id" unsaved-value="0">
-			<generator class="native">
-				<param name="sequence">form_form_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">form_form_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 
 		<property name="uuid" type="java.lang.String"
