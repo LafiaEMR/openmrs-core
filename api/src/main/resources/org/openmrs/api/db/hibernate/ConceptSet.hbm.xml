@@ -18,9 +18,10 @@
 	<class name="ConceptSet" table="concept_set" batch-size="25">
 
 		<id name="conceptSetId" type="java.lang.Integer" column="concept_set_id">
-			<generator class="native">
-				<param name="sequence">concept_set_concept_set_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">concept_set_concept_set_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 		
 		<property name="uuid" type="java.lang.String"

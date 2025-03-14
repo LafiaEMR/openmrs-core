@@ -19,9 +19,10 @@
 	<class name="ConceptAttributeType" table="concept_attribute_type">
 
         <id name="conceptAttributeTypeId" type="int" column="concept_attribute_type_id">
-			<generator class="native">
-				<param name="sequence">concept_attribute_type_concept_attribute_type_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">concept_attribute_type_concept_attribute_type_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
         </id>
 
         <discriminator column="concept_attribute_type_id" insert="false" />
