@@ -18,10 +18,9 @@
     <class name="OrderSet" table="order_set">
 
         <id name="orderSetId" type="int" column="order_set_id" unsaved-value="0">
-<!--            <generator class="sequence">-->
-<!--                <param name="sequence">order_set_order_set_id_seq</param>-->
-<!--            </generator>-->
-			<generator class="identity" />
+            <generator class="native">
+                <param name="sequence">order_set_order_set_id_seq</param>
+            </generator>
         </id>
 
         <property name="name" type="java.lang.String"
