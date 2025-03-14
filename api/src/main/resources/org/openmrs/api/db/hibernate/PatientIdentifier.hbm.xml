@@ -18,9 +18,10 @@
 	<class name="org.openmrs.PatientIdentifier" table="patient_identifier">
 	
 		<id name="patientIdentifierId" type="int" column="patient_identifier_id" unsaved-value="0">
-			<generator class="native">
-				<param name="sequence">patient_identifier_patient_identifier_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">patient_identifier_patient_identifier_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 
 		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />

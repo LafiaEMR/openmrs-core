@@ -18,9 +18,10 @@
 	<class name="Field" table="field">
 
 		<id name="fieldId" type="int" column="field_id" unsaved-value="0">
-			<generator class="native">
-				<param name="sequence">field_field_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">field_field_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 		
 		

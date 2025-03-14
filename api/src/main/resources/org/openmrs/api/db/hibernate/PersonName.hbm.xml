@@ -21,9 +21,10 @@
 
 		<id name="personNameId" type="java.lang.Integer"
 			column="person_name_id" unsaved-value="0">
-			<generator class="native">
-				<param name="sequence">person_name_person_name_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">person_name_person_name_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 
 		<property name="uuid" type="java.lang.String"
