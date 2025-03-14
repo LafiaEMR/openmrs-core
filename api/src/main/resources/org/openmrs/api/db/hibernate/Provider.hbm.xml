@@ -20,10 +20,9 @@
 
 		<id name="providerId" type="java.lang.Integer" column="provider_id"
 			unsaved-value="0">
-<!--			<generator class="sequence">-->
-<!--				<param name="sequence">provider_provider_id_seq</param>-->
-<!--			</generator>-->
-			<generator class="identity" />
+			<generator class="native">
+				<param name="sequence">provider_provider_id_seq</param>
+			</generator>
 		</id>
 
 		<discriminator column="provider_id" insert="false" />

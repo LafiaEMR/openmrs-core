@@ -15,7 +15,15 @@ import org.hibernate.envers.Audited;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * PatientIdentifierType
@@ -70,10 +78,12 @@ public class PatientIdentifierType extends BaseChangeableOpenmrsMetadata {
 	// Fields
 	@DocumentId
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
 	@Column(name = "patient_identifier_type_id")
 	private Integer patientIdentifierTypeId;
 
+	@Column(name = "format")
 	private String format;
 
 	@Field

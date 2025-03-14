@@ -18,10 +18,9 @@
     <class name="OrderGroup" table="order_group">
 
         <id name="orderGroupId" type="int" column="order_group_id" unsaved-value="0">
-<!--            <generator class="sequence">-->
-<!--                <param name="sequence">order_group_order_group_id_seq</param>-->
-<!--            </generator>-->
-			<generator class="identity" />
+            <generator class="native">
+                <param name="sequence">order_group_order_group_id_seq</param>
+            </generator>
         </id>
 
         <many-to-one name="orderSet" class="OrderSet">

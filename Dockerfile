@@ -130,8 +130,6 @@ COPY --from=dev /openmrs/wait-for-it.sh /openmrs/startup-init.sh /openmrs/startu
 RUN chmod g+x /openmrs/wait-for-it.sh && chmod g+x /openmrs/startup-init.sh && chmod g+x /openmrs/startup.sh
 
 COPY --from=compile /openmrs_core/modules /openmrs/modules
-COPY --from=compile /openmrs_core/configuration /openmrs/distribution/openmrs_config
-COPY --from=compile /openmrs_core/configuration /openmrs/distribution/openmrs_config
 
 WORKDIR /openmrs
 

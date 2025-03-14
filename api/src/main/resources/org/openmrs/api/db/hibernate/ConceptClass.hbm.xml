@@ -20,10 +20,9 @@
 		<cache usage="read-write"/>
 
 		<id name="conceptClassId" type="java.lang.Integer" column="concept_class_id" unsaved-value="0">
-<!--			<generator class="sequence">-->
-<!--				<param name="sequence">concept_class_concept_class_id_seq</param>-->
-<!--			</generator>-->
-			<generator class="identity" />
+			<generator class="native">
+				<param name="sequence">concept_class_concept_class_id_seq</param>
+			</generator>
 		</id>
 
 		<property name="uuid" type="java.lang.String"

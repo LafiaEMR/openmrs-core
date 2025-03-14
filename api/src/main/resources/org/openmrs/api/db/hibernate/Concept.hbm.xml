@@ -22,10 +22,9 @@
 		<id name="conceptId" type="java.lang.Integer"
 			column="concept_id"
 			unsaved-value="undefined">
-			<generator class="identity" />
-<!--			<generator class="sequence">-->
-<!--				<param name="sequence">concept_concept_id_seq</param>-->
-<!--			</generator>-->
+			<generator class="org.openmrs.api.db.hibernate.NativeIfNotAssignedIdentityGenerator">
+				<param name="sequence">concept_concept_id_seq</param>
+			</generator>
 		</id>
 
 		<property name="uuid" type="java.lang.String"

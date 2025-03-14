@@ -19,10 +19,9 @@
 	<class name="OrderGroupAttributeType" table="order_group_attribute_type">
 
 		<id name="orderGroupAttributeTypeId" type="int" column="order_group_attribute_type_id">
-<!--			<generator class="sequence">-->
-<!--				<param name="sequence">order_group_attribute_type_order_group_attribute_type_id_seq</param>-->
-<!--			</generator>-->
-			<generator class="identity" />
+			<generator class="native">
+				<param name="sequence">order_group_attribute_type_order_group_attribute_type_id_seq</param>
+			</generator>
 		</id>
 
 		<property name="name" type="java.lang.String" column="name" not-null="true" length="255" unique="true" />
