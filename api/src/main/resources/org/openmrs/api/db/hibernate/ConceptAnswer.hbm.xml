@@ -19,9 +19,10 @@
 	<class name="ConceptAnswer" table="concept_answer" batch-size="25">
 
 		<id name="conceptAnswerId" type="java.lang.Integer" column="concept_answer_id">
-			<generator class="native">
-				<param name="sequence">concept_answer_concept_answer_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">concept_answer_concept_answer_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 		
 		<many-to-one

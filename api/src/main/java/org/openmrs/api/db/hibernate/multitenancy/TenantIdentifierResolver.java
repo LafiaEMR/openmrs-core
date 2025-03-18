@@ -50,8 +50,6 @@ public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
 //		return resolvedTenant;
 		
         String tenant = TenantContext.getCurrentTenant();
-		log.info("tenant:: {}", tenant);
-		
         return tenant != null ? tenant : "public";
     }
 
