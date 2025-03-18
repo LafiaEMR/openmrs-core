@@ -36,6 +36,7 @@ jobs:
             - name: Build Docker Image
               run: |
                   docker build -t ${{ secrets.ECR_REPOSITORY }}:latest .
+                  docker build -t ${{ secrets.ECR_REPOSITORY }}:${{ steps.branch.outputs.BRANCH_NAME }} .
 
             - name: Tag Docker Image
               run: |
