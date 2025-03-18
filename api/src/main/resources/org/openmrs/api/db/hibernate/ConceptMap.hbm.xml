@@ -18,9 +18,10 @@
 	<class name="ConceptMap" table="concept_reference_map">
  
 		<id name="conceptMapId" type="java.lang.Integer" column="concept_map_id" unsaved-value="0">
-			<generator class="native">
-				<param name="sequence">concept_reference_map_concept_map_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">concept_reference_map_concept_map_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 		
 		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" not-null="true" />

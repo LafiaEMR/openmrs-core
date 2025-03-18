@@ -18,9 +18,10 @@
 	<class name="ConceptName" table="concept_name" batch-size="25">
 
 		<id name="conceptNameId" type="int" column="concept_name_id">
-			<generator class="identity">
-				<param name="sequence">concept_name_concept_name_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">concept_name_concept_name_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 		
 		<many-to-one

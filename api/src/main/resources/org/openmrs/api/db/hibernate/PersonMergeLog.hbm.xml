@@ -19,9 +19,10 @@
 	<class name="org.openmrs.person.PersonMergeLog" table="person_merge_log">
 
 		<id name="personMergeLogId" type="java.lang.Integer" column="person_merge_log_id">
-			<generator class="native">
-				<param name="sequence">person_merge_log_person_merge_log_id_seq</param>
-			</generator>
+<!--			<generator class="sequence">-->
+<!--				<param name="sequence">person_merge_log_person_merge_log_id_seq</param>-->
+<!--			</generator>-->
+			<generator class="identity" />
 		</id>
 
 		<many-to-one name="winner" class="org.openmrs.Person" column="winner_person_id"
