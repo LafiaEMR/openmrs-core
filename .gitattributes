@@ -1,5 +1,4 @@
 * text=auto
-
 # Known text file extensions
 *.as text
 *.bat text
@@ -54,7 +53,6 @@
 *.xslt text
 *.yaml text
 *.yml text
-
 # Known binary file extensions
 *.bmp binary
 *.chls binary
@@ -72,4 +70,4 @@
 *.png binary
 *.ttf binary
 *.woff binary
-*.zip binary
+*.zip filter=lfs diff=lfs merge=lfs -text
